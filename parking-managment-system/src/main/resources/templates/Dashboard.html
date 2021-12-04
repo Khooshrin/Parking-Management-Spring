@@ -2,25 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="Parking.jpeg" type="image/x-icon" />
     <title>Parking Slot Selection</title>
   </head>
   <body>
 
-    <form id="form1">
-      <div class="slot-container">
-        <label for="slot"> Give your parking location:</label>
-        <select id="slot">
-          <option value="North">North</option>
-          <option value="South">South</option>
-          <option value="East">East</option>
-          <option value="West">West</option>
-        </select>
-      </div>
-      
+    <form id="form1" action="#" th:action="@{/saveBooking}" th:object="${bookingDetails}" method="POST">
+     
+      <br>
       <ul class="showcase">
         <li>
           <div class="slot"></div>
@@ -36,7 +27,6 @@
         </li>
       </ul>
       <div class="container">
-        <div class="screen"></div>
       
         <div class="row">
           <div class="slot"></div>
@@ -101,36 +91,40 @@
         </div>
       </div>
 
-      <br><br>
-
-        <label for="date">Select your date:</label>
-        <input type="date" id="date" required><br><br>
-        <label for="check_in_time">Select your check-in time:</label>
-        <input type="time" id="check_in_time" required><br><br>
-        <label for="check_out_time">Select your check-out time:</label>
-        <input type="time" id="check_out_time" required><br><br>
-        <label for="phone_no">Give your phone number:</label>
-        <input type="tel" id="phone_no" maxlength="10" minlength="10" placeholder="Phone Number" required><br><br>
-        <label for="extras">Complementary Services</label><br><br>
-        <input type="checkbox" id="extras" value="500">Car Washing<br>
-        <input type="checkbox" id="extras" value="500">Air Filling
-        <br><br>
+       <div class="slot-container">
+        <label for="slot"> Give your parking location:</label>
+        <select id="slot">
+          <option value="North">North</option>
+          <option value="South">South</option>
+          <option value="East">East</option>
+          <option value="West">West</option>
+        </select>
+      </div>
+      		Please Note: Maximum Time to Park is 12 Hours.<br>
+      		Enter Date of Booking:
+			<input type="number" th:field="*{Date}" placeholder="Enter Date" class="form-control mb-4 col-4"><br>
+			Enter Month of Booking:
+			<input type="number" th:field="*{Month}" placeholder="Enter Month" class="form-control mb-4 col-4"><br>
+			Enter Year of Booking:
+			<input type="number" th:field="*{Year}" placeholder="Year" class="form-control mb-4 col-4"><br>
+			Enter Hour of Check-in:
+			<input type="number" th:field="*{CheckInHour}" placeholder="Enter Hour For Check-in" class="form-control mb-4 col-4"><br>
+			Enter Minute of Check-in:
+			<input type="number" th:field="*{CheckInMinute}" placeholder="Enter Minute For Check-in" class="form-control mb-4 col-4"><br>
+			Enter Hour of Check-out:
+			<input type="number" th:field="*{CheckOutHour}" placeholder="Enter Hour For Check-out" class="form-control mb-4 col-4"><br>
+			Enter Minute of Check-out:
+			<input type="number" th:field="*{CheckOutMinute}" placeholder="Enter Minute For Check-out" class="form-control mb-4 col-4"><br>
+			Enter Y for Car Wash, else Enter N
+			<input type="text" th:field="*{CarWash}" placeholder="Enter here for Car Wash" class="form-control mb-4 col-4"><br>
+			Enter Y for AirFilling, else Enter N
+			<input type="text" th:field="*{AirFilling}" placeholder="Enter here for Air Filling" class="form-control mb-4 col-4"><br>
+	
+		<button type="submit" class="btn btn-info col-2">Submit</button>
+		
     </form>
-    <center>
-      <div class="liquid">
-      <button type ="submit" form="form1" value="submit">
-      <span>Submit</span>
-      </button>
-      </div>
-    </center>
 
-    <br><br>
-
-    <p class="text">
-      You have selected <span id="count">0</span> slot for a price of ₹. <span id="total">0</span>
-    </p>
-
-	<a th:href="@{/logout}" class="btn btn-primary btn-sm mb-3">Logout</a>
+   
 
     <script src="Dashboard.js"></script>
 

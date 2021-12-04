@@ -5,7 +5,7 @@
    
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="Parking.jpeg" type="image/x-icon" />
-    <title>Parking Slot Selection</title>
+    <title>Modify Booking</title>
   </head>
   <body>
 
@@ -100,27 +100,28 @@
           <option value="West">West</option>
         </select>
       </div>
+      	<input type="hidden" th:field="*{Username}" />
       		Please Note: Maximum Time to Park is 12 Hours.<br>
       		Enter Date of Booking:
-			<input type="number" th:field="*{Date}" placeholder="Enter Date" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{Date}"  class="form-control mb-4 col-4"><br>
 			Enter Month of Booking:
-			<input type="number" th:field="*{Month}" placeholder="Enter Month" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{Month}"  class="form-control mb-4 col-4"><br>
 			Enter Year of Booking:
-			<input type="number" th:field="*{Year}" placeholder="Year" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{Year}"  class="form-control mb-4 col-4"><br>
 			Enter Hour of Check-in:
-			<input type="number" th:field="*{CheckInHour}" placeholder="Enter Hour For Check-in" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{CheckInHour}"  class="form-control mb-4 col-4"><br>
 			Enter Minute of Check-in:
-			<input type="number" th:field="*{CheckInMinute}" placeholder="Enter Minute For Check-in" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{CheckInMinute}"  class="form-control mb-4 col-4"><br>
 			Enter Hour of Check-out:
-			<input type="number" th:field="*{CheckOutHour}" placeholder="Enter Hour For Check-out" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{CheckOutHour}" class="form-control mb-4 col-4"><br>
 			Enter Minute of Check-out:
-			<input type="number" th:field="*{CheckOutMinute}" placeholder="Enter Minute For Check-out" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{CheckOutMinute}"  class="form-control mb-4 col-4"><br>
 			Enter Y for Car Wash, else Enter N
-			<input type="text" th:field="*{CarWash}" placeholder="Enter here for Car Wash" class="form-control mb-4 col-4"><br>
+			<input type="text" th:field="*{CarWash}"  class="form-control mb-4 col-4"><br>
 			Enter Y for AirFilling, else Enter N
-			<input type="text" th:field="*{AirFilling}" placeholder="Enter here for Air Filling" class="form-control mb-4 col-4"><br>
+			<input type="text" th:field="*{AirFilling}"  class="form-control mb-4 col-4"><br>
 	
-		<button type="submit" class="btn btn-info col-2">Submit</button>
+		<button type="submit" class="btn btn-info col-2">Modify</button>
 		
     </form>
 

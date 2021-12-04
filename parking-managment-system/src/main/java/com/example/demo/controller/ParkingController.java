@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.model.BookingDetails;
 import com.example.demo.model.UserDetails;
 import com.example.demo.model.WorkerDetails;
+import com.example.demo.service.BookingService;
 import com.example.demo.service.DetailsService;
 import com.example.demo.service.WorkersService;
 
@@ -20,6 +25,11 @@ public class ParkingController {
 	private DetailsService detailsService;
 	@Autowired
 	private WorkersService workersService;
+	@Autowired
+	private BookingService bookingService;
+	BookingDetails bookingDetails=new BookingDetails();
+	LocalDate currentdate = LocalDate.now();
+	static String UName;
 	
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
@@ -31,6 +41,14 @@ public class ParkingController {
 	public String addWorker(@ModelAttribute("WorkerDetails") WorkerDetails workerDetails) {
 		workersService.saveWorkerDetails(workerDetails);
 		return "redirect:/admin"; 
+	}
+	
+	@GetMapping("/modify")
+	public String Modify(Model model)
+	{
+		BookingDetails bookingDetails=bookingService.getBookingDetailsById(UName);
+		model.addAttribute("bookingDetails", bookingDetails);
+		return "Modify";
 	}
 	
 	@GetMapping("/register")
@@ -48,6 +66,7 @@ public class ParkingController {
 	
 	@PostMapping("/saveDetails")
 	public String saveDetails(@ModelAttribute("UserDetails") UserDetails userDetails) {
+		bookingDetails.setUsername(userDetails.getUsername());
 		if((userDetails.getPassword()).compareTo(userDetails.getConfPassword())==0)
 		{
 			detailsService.saveUserDetails(userDetails);
@@ -71,7 +90,10 @@ public class ParkingController {
 	}
 	
 	@GetMapping("/dashboard")
-	public String Dashboard() {
+	public String Dashboard(Model model) {
+		//bookingDetails.setUsername(this.bookingDetails.getUsername());
+		bookingDetails.setUsername(UName);
+		model.addAttribute("bookingDetails",bookingDetails);
 		return "Dashboard";
 	}
 	
@@ -89,13 +111,30 @@ public class ParkingController {
 	}
 	
 	@PostMapping("/processDetails")
-	public String Dashboard(@ModelAttribute("UserDetails") UserDetails userDetails)
+	public String Dashboard(@ModelAttribute("UserDetails") UserDetails userDetails )
 	{
+		UName=userDetails.getUsername();
 		if(detailsService.findUser(userDetails)==true && (userDetails.getUsername()).compareTo("admin")==0)
 		return "redirect:/admin";
 		else if(detailsService.findUser(userDetails)==true)
 		return "redirect:/dashboard";
 		else
 		return "redirect:/login";
+	}
+	
+	@SuppressWarnings("deprecation")
+	@PostMapping("/saveBooking")
+	public String saveBooking(@ModelAttribute("BookingDetails") BookingDetails bookingDetails) {
+		//bookingDetails.setUsername(this.bookingDetails.getUsername());
+		bookingDetails.setUsername(UName);
+		Date chosenDate=new Date(bookingDetails.getYear(),bookingDetails.getMonth(),bookingDetails.getDate());
+		Date currentDate=new Date();
+		if(currentDate.compareTo(chosenDate)<0 || (currentDate.compareTo(chosenDate)==0 && bookingDetails.getCheckInHour()<24 && bookingDetails.getCheckInMinute()<60 && bookingDetails.getCheckOutHour()<24 && bookingDetails.getCheckOutMinute()<60 && bookingDetails.getCheckOutHour()-bookingDetails.getCheckInHour()<=12 && (!(bookingDetails.getCheckOutHour()<bookingDetails.getCheckInHour() || bookingDetails.getCheckOutMinute()<bookingDetails.getCheckInMinute()))))
+		{
+			bookingService.saveBookingDetails(bookingDetails);
+			return "ConfirmedBooking";
+		}
+		else
+			return "redirect:/dashboard";
 	}
 }
