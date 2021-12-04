@@ -37,6 +37,7 @@ public class ParkingController {
 		return "index";
 	}
 	
+	
 	@PostMapping("/addWorker")
 	public String addWorker(@ModelAttribute("WorkerDetails") WorkerDetails workerDetails) {
 		workersService.saveWorkerDetails(workerDetails);
@@ -56,6 +57,13 @@ public class ParkingController {
 		UserDetails userDetails=new UserDetails();
 		model.addAttribute("userDetails", userDetails);
 		return "Register";
+	}
+	
+	@GetMapping("/rate")
+	public String Rate(Model model) {
+		WorkerDetails workerDetails=new WorkerDetails();
+		model.addAttribute("workerDetails", workerDetails);
+		return "Billpayment";
 	}
 	
 	@GetMapping("/deleteWorker/{Name}")
@@ -143,4 +151,12 @@ public class ParkingController {
 		this.bookingService.deleteBookingById(UName);
 		return "Cancel";
 	}
+	
+	@PostMapping("/updateRatings")
+	public String updateRatings(Model model) {
+		WorkerDetails workerDetails=new WorkerDetails();
+		model.addAttribute("workerDetails", workerDetails);
+		return "FeedbackSubmitted";
+	}
+	
 }

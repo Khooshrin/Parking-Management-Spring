@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate & Bill Payment</title>
+    <link rel="stylesheet" href="AdDash.css">
+    <link rel="icon" href="Parking.jpeg" type="image/x-icon" />
+</head>
+<body>
+<form action="#" th:action="@{/updateRatings}" th:object="${workerDetails}" method="POST">
+    <label for="number"><h1>Please Rate us</h1></label>
+    <input type="number" th:field="*{Rating}" placeholder="Rating" min="1" max="5" class="form-control mb-4 col-4">
+    <br><br><br><br> 
+    <label for="feedback"><h2>Leave us with your valuable feedback</h2></label>
+    <textarea id="feedback" rows="4" cols="50"></textarea>
+    <button type="submit" class="btn btn-info col-2">SUBMIT</button>
+	
+	</form>
+  	<br><br>
+  	Feedback has been submitted successfully! 
+  	<br>
+  	Thank you for chosing us. Hope to see you again.
+  	<br>
+  	Please proceed to make the payment.
+    <br><br><br>
+    <div class="razorpay-embed-btn" data-url="https://pages.razorpay.com/pl_IT0jERUWh24nrr/view" data-text="Pay Now"
+        data-color="#528FF0" data-size="large">
+        <script>
+            (function () {
+                var d = document; var x = !d.getElementById('razorpay-embed-btn-js')
+                if (x) {
+                    var s = d.createElement('script'); s.defer = !0; s.id = 'razorpay-embed-btn-js';
+                    s.src = 'https://cdn.razorpay.com/static/embed_btn/bundle.js'; d.body.appendChild(s);
+                } else {
+                    var rzp = window['__rzp__'];
+                    rzp && rzp.init && rzp.init()
+                }
+            })();
+        </script>
+    </div>
+</body>
+</html>
