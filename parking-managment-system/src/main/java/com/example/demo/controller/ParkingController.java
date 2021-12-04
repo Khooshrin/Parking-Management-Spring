@@ -137,4 +137,10 @@ public class ParkingController {
 		else
 			return "redirect:/dashboard";
 	}
+	
+	@GetMapping("/cancel")
+	public String cancelBooking() {
+		this.bookingService.deleteBookingById(UName);
+		return "Cancel";
+	}
 }

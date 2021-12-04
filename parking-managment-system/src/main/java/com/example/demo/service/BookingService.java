@@ -9,6 +9,6 @@ public interface BookingService {
 	List<BookingDetails> getAllBookingDetailss();
 	void saveBookingDetails(BookingDetails bookingDetails);
 	BookingDetails getBookingDetailsById(String Username);
-	//boolean findUser(BookingDetails bookingDetails);
+	void deleteBookingById(String Name);
 	
 }

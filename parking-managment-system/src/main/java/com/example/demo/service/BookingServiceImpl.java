@@ -37,5 +37,10 @@ public class BookingServiceImpl implements BookingService{
 			throw new RuntimeException("Booking Details Not Found for Username :: "+Username);
 		return bookingDetails;
 	}
+	
+	@Override
+	public void deleteBookingById(String Name) {
+		this.bookingRepository.deleteById(Name);
+	}
 
 }
