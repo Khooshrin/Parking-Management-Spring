@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+
+<div align="center" class="container my-2">
+
+<h1>Worker Details</h1>
+
+<a th:href="@{/add}" class="btn btn-primary btn-sm mb-3">Add Worker</a>
+	<table>
+	<table border="1" class="table table-striped table-responsive-md">
+	<thead>
+		<tr>
+		<th>Name</th>
+		<th>Hours</th>
+		<th>Rating</th>
+		<th>Comments</th>
+		<th>Delete</th>
+		
+		</tr>
+	
+	</thead>
+	<tbody>
+	<tr th:each="worker:${listWorkers}">
+	<td th:text="${worker.Name}"></td>
+	<td th:text="${worker.Hours}"></td>
+	<td th:text="${worker.Rating}"></td>
+	<td th:text="${worker.Comments}"></td>
+	<td><a th:href="@{/deleteWorker/{Name}(Name=${worker.Name})}" class="btn btn-danger">Remove Worker</a>
+                    </td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<a th:href="@{/logout}" class="btn btn-primary btn-sm mb-3">Logout</a>
+
+</div>
+
+</body>
+</html>
