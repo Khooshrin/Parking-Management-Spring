@@ -28,15 +28,7 @@ public class UserDetails {
 	@Column(name="Password")
 	private String Password;
 	private String ConfPassword;
-	@Column(updatable=false)
-	private String Verify;
-	
-	public String getVerify() {
-		return Verify;
-	}
-	public void setVerify(String verify) {
-		Verify = verify;
-	}
+
 	public String getConfPassword() {
 		return ConfPassword;
 	}

@@ -104,21 +104,21 @@
       </div>
       		Please Note: Maximum Time to Park is 12 Hours.<br>
       		Enter Date of Booking:
-			<input type="number" th:field="*{Date}" placeholder="Enter Date" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{Date}" placeholder="Enter Date" class="form-control mb-4 col-4">
 			Enter Month of Booking:
-			<input type="number" th:field="*{Month}" placeholder="Enter Month" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{Month}" placeholder="Enter Month" class="form-control mb-4 col-4">
 			Enter Year of Booking:
 			<input type="number" th:field="*{Year}" placeholder="Year" class="form-control mb-4 col-4"><br>
 			Enter Hour of Check-in:
-			<input type="number" th:field="*{CheckInHour}" placeholder="Enter Hour For Check-in" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{CheckInHour}" placeholder="Enter Hour For Check-in" class="form-control mb-4 col-4">
 			Enter Minute of Check-in:
 			<input type="number" th:field="*{CheckInMinute}" placeholder="Enter Minute For Check-in" class="form-control mb-4 col-4"><br>
 			Enter Hour of Check-out:
-			<input type="number" th:field="*{CheckOutHour}" placeholder="Enter Hour For Check-out" class="form-control mb-4 col-4"><br>
+			<input type="number" th:field="*{CheckOutHour}" placeholder="Enter Hour For Check-out" class="form-control mb-4 col-4">
 			Enter Minute of Check-out:
 			<input type="number" th:field="*{CheckOutMinute}" placeholder="Enter Minute For Check-out" class="form-control mb-4 col-4"><br>
 			Enter Y for Car Wash, else Enter N
-			<input type="text" th:field="*{CarWash}" placeholder="Enter here for Car Wash" class="form-control mb-4 col-4"><br>
+			<input type="text" th:field="*{CarWash}" placeholder="Enter here for Car Wash" class="form-control mb-4 col-4">
 			Enter Y for AirFilling, else Enter N
 			<input type="text" th:field="*{AirFilling}" placeholder="Enter here for Air Filling" class="form-control mb-4 col-4"><br>
 	
@@ -127,7 +127,11 @@
     </form>
     
     <a th:href="@{/logout}" class="btn btn-primary btn-sm mb-3" style="position: absolute; right: 0;">Logout</a>
-
+    <br>
+	<p class="text">
+      You have selected <span id="count">0</span> slot(s) for a price of ₹. <input type="number" id="total"
+        placeholder="Total">
+    </p>
    
 
     <script src="Dashboard.js"></script>

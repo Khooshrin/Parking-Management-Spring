@@ -41,7 +41,10 @@ public class ParkingController {
 	@PostMapping("/addWorker")
 	public String addWorker(@ModelAttribute("WorkerDetails") WorkerDetails workerDetails) {
 		workersService.saveWorkerDetails(workerDetails);
+		if(UName.compareTo("admin")==0)
 		return "redirect:/admin"; 
+		else
+		return "FeedbackSubmitted";
 	}
 	
 	@GetMapping("/modify")
@@ -115,6 +118,7 @@ public class ParkingController {
 	@GetMapping("/admin")
 	public String admin(Model model) {
 		model.addAttribute("listWorkers", workersService.getAllWorkerDetailss());
+		model.addAttribute("listBooking", bookingService.getAllBookingDetailss());
 		return "admin";
 	}
 	

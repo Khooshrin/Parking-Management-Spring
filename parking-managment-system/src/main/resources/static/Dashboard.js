@@ -8,7 +8,7 @@ populateUI();
 
 let ticketPrice = +slotSelect.value;
 
-//Save selected slot index and price
+// Save selected slot index and price
 function setSlotData(slotIndex, slotPrice) {
   localStorage.setItem("selectedSlotIndex", slotIndex);
   localStorage.setItem("selectedSlotPrice", slotPrice);

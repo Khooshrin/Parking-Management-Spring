@@ -10,6 +10,9 @@
 </head>
 <body>
 <form action="#" th:action="@{/updateRatings}" th:object="${workerDetails}" method="POST">
+	<input type="hidden" th:field="*{Name}" />
+	<input type="hidden" th:field="*{Hours}" />
+	<input type="hidden" th:field="*{Comments}" />
     <label for="number"><h1>Please Rate us</h1></label>
     <input type="number" th:field="*{Rating}" placeholder="Rating" min="1" max="5" class="form-control mb-4 col-4">
     <br><br><br><br> 
