@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +29,12 @@ public class ParkingController {
 	@Autowired
 	private BookingService bookingService;
 	BookingDetails bookingDetails=new BookingDetails();
+	WorkerDetails workerDetails=new WorkerDetails();
 	LocalDate currentdate = LocalDate.now();
 	static String UName;
+	static int count=7;
+	static Random r=new Random();
+	static String WorkerName="Worker".concat(String.valueOf(r.nextInt(1,count+1)));;
 	
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
@@ -42,7 +47,10 @@ public class ParkingController {
 	public String addWorker(@ModelAttribute("WorkerDetails") WorkerDetails workerDetails) {
 		workersService.saveWorkerDetails(workerDetails);
 		if(UName.compareTo("admin")==0)
-		return "redirect:/admin"; 
+		{
+			count++;
+			return "redirect:/admin"; 
+		}
 		else
 		return "FeedbackSubmitted";
 	}
@@ -64,14 +72,25 @@ public class ParkingController {
 	
 	@GetMapping("/rate")
 	public String Rate(Model model) {
+		//WorkerDetails workerDetails=workersService.getWorkerDetailsById(WorkerName);
 		WorkerDetails workerDetails=new WorkerDetails();
+		workerDetails.setName(WorkerName);
 		model.addAttribute("workerDetails", workerDetails);
 		return "Billpayment";
+	}
+	
+	@GetMapping("/payment")
+	public String Pay(Model model) {
+		WorkerDetails workerDetails=new WorkerDetails();
+		workerDetails.setName(WorkerName);
+		model.addAttribute("workerDetails", workerDetails);
+		return "FeedbackSubmitted";
 	}
 	
 	@GetMapping("/deleteWorker/{Name}")
 	public String deleteWorker(@PathVariable (value="Name") String Name) {
 		this.workersService.deleteWorkerById(Name);
+		count--;
 		return "redirect:/admin";
 	}
 	
@@ -122,6 +141,12 @@ public class ParkingController {
 		return "admin";
 	}
 	
+	@GetMapping("/confirm")
+	public String confirm(Model model) {
+		model.addAttribute("worker", workersService.getWorkerDetailsById(WorkerName));
+		return "ConfirmedBooking";
+	}
+	
 	@PostMapping("/processDetails")
 	public String Dashboard(@ModelAttribute("UserDetails") UserDetails userDetails )
 	{
@@ -137,14 +162,13 @@ public class ParkingController {
 	@SuppressWarnings("deprecation")
 	@PostMapping("/saveBooking")
 	public String saveBooking(@ModelAttribute("BookingDetails") BookingDetails bookingDetails) {
-		//bookingDetails.setUsername(this.bookingDetails.getUsername());
 		bookingDetails.setUsername(UName);
 		Date chosenDate=new Date(bookingDetails.getYear(),bookingDetails.getMonth(),bookingDetails.getDate());
 		Date currentDate=new Date();
 		if(currentDate.compareTo(chosenDate)<0 || (currentDate.compareTo(chosenDate)==0 && bookingDetails.getCheckInHour()<24 && bookingDetails.getCheckInMinute()<60 && bookingDetails.getCheckOutHour()<24 && bookingDetails.getCheckOutMinute()<60 && bookingDetails.getCheckOutHour()-bookingDetails.getCheckInHour()<=12 && (!(bookingDetails.getCheckOutHour()<bookingDetails.getCheckInHour() || bookingDetails.getCheckOutMinute()<bookingDetails.getCheckInMinute()))))
 		{
 			bookingService.saveBookingDetails(bookingDetails);
-			return "ConfirmedBooking";
+			return "redirect:/confirm";
 		}
 		else
 			return "redirect:/dashboard";
@@ -157,10 +181,12 @@ public class ParkingController {
 	}
 	
 	@PostMapping("/updateRatings")
-	public String updateRatings(Model model) {
-		WorkerDetails workerDetails=new WorkerDetails();
-		model.addAttribute("workerDetails", workerDetails);
-		return "FeedbackSubmitted";
+	public String updateRatings(@ModelAttribute("WorkerDetails") WorkerDetails workerDetails) {
+		workerDetails.setName(WorkerName);
+		workerDetails.setHours(workersService.getWorkerDetailsById(WorkerName).getHours());
+		workerDetails.setRating((int)(workerDetails.getRating()+workersService.getWorkerDetailsById(WorkerName).getRating())/2);
+		workersService.saveWorkerDetails(workerDetails);
+		return "redirect:/payment";
 	}
 	
 }

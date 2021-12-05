@@ -7,17 +7,24 @@
     <title>Rate & Bill Payment</title>
     <link rel="stylesheet" href="AdDash.css">
     <link rel="icon" href="Parking.jpeg" type="image/x-icon" />
+    <style>
+    .CommentBox{
+    height:1000px;
+    width:1000px;
+    word-break: break-word;
+	}
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/updateRatings}" th:object="${workerDetails}" method="POST">
 	<input type="hidden" th:field="*{Name}" />
 	<input type="hidden" th:field="*{Hours}" />
-	<input type="hidden" th:field="*{Comments}" />
     <label for="number"><h1>Please Rate us</h1></label>
     <input type="number" th:field="*{Rating}" placeholder="Rating" min="1" max="5" class="form-control mb-4 col-4">
     <br><br><br><br> 
     <label for="feedback"><h2>Leave us with your valuable feedback</h2></label>
-    <textarea id="feedback" rows="4" cols="50"></textarea>
+    <input type="text" th:field="*{Comments}" id="CommentBox"/>
+    <br><br>
     <button type="submit" class="btn btn-info col-2">SUBMIT</button>
 	
 	</form>

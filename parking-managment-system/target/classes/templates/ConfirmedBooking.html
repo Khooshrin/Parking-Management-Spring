@@ -24,6 +24,9 @@ Booking Confirmed!!
 <br><br>
 Your Total amount is: Rs. 
 <br><br>
+<a th:each="worker:${worker}"></a>
+<a th:text="|You have been alloted ${worker.Name}|">Static content</a>
+<br><br>
 <a th:href="@{/modify}" class="btn btn-primary btn-sm mb-3">Modify Booking</a>
 <br><br>
 
