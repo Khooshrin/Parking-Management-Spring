@@ -22,7 +22,8 @@
 <div class="confirmDiv">
 Booking Confirmed!!
 <br><br>
-Your Total amount is: Rs. 
+<a th:each="booking:${booking}"></a>
+<a th:text="|Your total bill amount is Rs.${booking.Cost}|">Static content</a>
 <br><br>
 <a th:each="worker:${worker}"></a>
 <a th:text="|You have been alloted ${worker.Name}|">Static content</a>

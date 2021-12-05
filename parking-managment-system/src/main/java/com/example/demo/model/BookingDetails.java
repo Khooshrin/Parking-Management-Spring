@@ -1,6 +1,9 @@
 package com.example.demo.model;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,8 +24,26 @@ public class BookingDetails {
 	private int CheckOutMinute;
 	private String CarWash;
 	private String AirFilling;
+	private double Cost;
 	
 	
+	public double getCost() {
+		return Cost;
+	}
+	public void setCost() throws ParseException {
+		String time1 = CheckInHour+":"+CheckInMinute+":00";
+		String time2 = CheckOutHour+":"+CheckOutMinute+":00";
+
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+		java.util.Date date1 = format.parse(time1);
+		java.util.Date date2 = format.parse(time2);
+		double difference = date2.getTime() - date1.getTime(); 
+		difference=difference/3600000.0;
+		if(difference<=1.0)
+			Cost=25;
+		else
+			Cost=difference*25;
+	}
 	public String getUsername() {
 		return Username;
 	}

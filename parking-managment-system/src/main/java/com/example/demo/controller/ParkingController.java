@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
@@ -121,7 +122,6 @@ public class ParkingController {
 	
 	@GetMapping("/dashboard")
 	public String Dashboard(Model model) {
-		//bookingDetails.setUsername(this.bookingDetails.getUsername());
 		bookingDetails.setUsername(UName);
 		model.addAttribute("bookingDetails",bookingDetails);
 		return "Dashboard";
@@ -142,8 +142,14 @@ public class ParkingController {
 	}
 	
 	@GetMapping("/confirm")
-	public String confirm(Model model) {
+	public String confirm(Model model) throws ParseException {
 		model.addAttribute("worker", workersService.getWorkerDetailsById(WorkerName));
+		bookingService.getBookingDetailsById(UName).setCost();
+		BookingDetails temp=new BookingDetails();
+		temp.setUsername(UName);
+		temp=bookingService.getBookingDetailsById(UName);
+		bookingService.saveBookingDetails(temp);
+		model.addAttribute("booking", bookingService.getBookingDetailsById(UName));
 		return "ConfirmedBooking";
 	}
 	
@@ -161,7 +167,7 @@ public class ParkingController {
 	
 	@SuppressWarnings("deprecation")
 	@PostMapping("/saveBooking")
-	public String saveBooking(@ModelAttribute("BookingDetails") BookingDetails bookingDetails) {
+	public String saveBooking(@ModelAttribute("BookingDetails") BookingDetails bookingDetails){
 		bookingDetails.setUsername(UName);
 		Date chosenDate=new Date(bookingDetails.getYear(),bookingDetails.getMonth(),bookingDetails.getDate());
 		Date currentDate=new Date();
