@@ -48,6 +48,7 @@
 		<th>Date</th>
 		<th>Check-in Time</th>
 		<th>Check-out Time</th>
+		<th>Cost</th>
 		<th>Car Wash</th>
 		<th>Air Filling</th>
 		
@@ -60,6 +61,7 @@
 	<td th:text="|${booking.date}/${booking.Month}/${booking.Year}|">Static content</td>
 	<td th:text="|${booking.CheckInHour}:${booking.CheckInMinute}|">Static content</td>
 	<td th:text="|${booking.CheckOutHour}:${booking.CheckOutMinute}|">Static content</td>
+	<td th:text="${booking.Cost}"></td>
 	<td th:text="${booking.CarWash}"></td>
 	<td th:text="${booking.AirFilling}"></td>
 	
